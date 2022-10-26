@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 15:55:27 by afenzl            #+#    #+#             */
-/*   Updated: 2022/10/26 15:55:23 by afenzl           ###   ########.fr       */
+/*   Updated: 2022/10/26 16:53:45 by dhamdiev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 # include <math.h>
 
 # include "../libft/libs.h"
-# include "../MLX/mlx.h"
+# include "MLX42/MLX42.h"
 
 enum e_direction
 {

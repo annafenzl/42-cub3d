@@ -3,40 +3,49 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+         #
+#    By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/23 14:36:07 by afenzl            #+#    #+#              #
-#    Updated: 2022/10/26 14:53:26 by afenzl           ###   ########.fr        #
+#    Updated: 2022/10/26 16:51:27 by dhamdiev         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = cub3d
+NAME	:= cub3d
+CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast
+LIBMLX	:= ./MLX42
+LIBFT	:= ./libft
 
-CC = cc
-CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
-RM := rm -f
+HEADERS	:= -I./include -I$(LIBMLX)/include -I/Users/$(USER)/goinfre/.brew/opt/glfw/include
+GLWF_LIB = /Users/$(USER)/goinfre/.brew/opt/glfw/lib
+GLWF_INC = /Users/$(USER)/goinfre/.brew/opt/glfw/include
+LIBS	:= $(LIBMLX)/libmlx42.a -ldl -lglfw -pthread -lm -L$(GLWF_LIB) ./libft/libs.a
+SRCS	:= $(shell find ./src -iname "*.c")
+OBJS	:= ${SRCS:.c=.o}
 
-LIBS = ./libft/libs.a
-MLX = ./MLX/libmlx.a
+all: libft libmlx $(NAME)
 
-SRC = 	./src/main.c
+libmlx:
+	@$(MAKE) -C $(LIBMLX)
 
-OBJ = $(SRC:.c=.o)
+libft:
+	@$(MAKE) -C $(LIBFT)
 
-all: $(NAME)
+%.o: %.c
+	@$(CC) $(CFLAGS) -o $@ -c $< $(HEADERS) && printf "Compiling: $(notdir $<)\n"
 
-$(NAME): $(OBJ)
-	make -C ./MLX/
-	make -C ./libft/
-	$(CC) $(CFLAGS) $(MLX) $(LIBS) $(OBJ) -framework OpenGL -framework AppKit -Imlx -o $(NAME)
+$(NAME): $(OBJS)
+	@$(CC) $(OBJS) $(LIBS) $(HEADERS) -o $(NAME)
 
 clean:
-	make fclean -C ./libft
-	$(RM) $(OBJ)
+	@rm -f $(OBJS)
+	@$(MAKE) -C $(LIBMLX) clean
+	@$(MAKE) -C $(LIBFT) clean
 
 fclean: clean
-	$(RM) $(NAME)
+	@rm -f $(NAME)
+	@$(MAKE) -C $(LIBMLX) fclean
+	@$(MAKE) -C $(LIBFT) fclean
 
-re: fclean all
+re: clean all
 
-.PHONY: all clean fclean re
+.PHONY: all, clean, fclean, re, libmlx

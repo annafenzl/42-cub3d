@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 14:46:10 by afenzl            #+#    #+#             */
-/*   Updated: 2022/10/26 16:10:44 by afenzl           ###   ########.fr       */
+/*   Updated: 2022/10/26 17:00:24 by dhamdiev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,6 +119,20 @@ int	parse(char *infile, t_cub *cub)
 	return (0);
 }
 
+
+static void ft_hook(void* param)
+{
+	const mlx_t* mlx = param;
+
+	printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
+}
+
+static void ft_error(void)
+{
+	fprintf(stderr, "%s", mlx_strerror(mlx_errno));
+	exit(EXIT_FAILURE);
+}
+
 int	main(int argc, char **argv)
 {
 	t_cub	cub;
@@ -127,5 +141,19 @@ int	main(int argc, char **argv)
 		error("Please execute with: './cub3d path/to/map/MAPNAME.cub'\n");
 	parse(argv[1], &cub);
 	ft_print2(cub.input);
+
+	mlx_t* mlx = mlx_init(400, 500, "42Balls", true);
+
+	mlx_image_t* img = mlx_new_image(mlx, 256, 256);
+	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
+		ft_error();
+
+	// Even after the image is being displayed, we can still modify the buffer.
+	mlx_put_pixel(img, 0, 0, 0xFF0000FF);
+	
+	mlx_loop_hook(mlx, ft_hook, mlx);
+	mlx_loop(mlx);
+	mlx_terminate(mlx);
+	
 	return (0);
 }
