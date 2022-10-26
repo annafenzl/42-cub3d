@@ -7,7 +7,8 @@ PRINTF := printf
 GNL := get_next_line
 DEBUG := debug
 
-FREE =	ft_free2.c		\
+FREE =	ft_free2.c \
+		ft_strjoin_free.c
 
 LST =	ft_lstnew.c			\
 		ft_lstadd_front.c	\

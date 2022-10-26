@@ -6,14 +6,14 @@
 #    By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/23 14:36:07 by afenzl            #+#    #+#              #
-#    Updated: 2022/10/23 15:45:02 by afenzl           ###   ########.fr        #
+#    Updated: 2022/10/26 14:53:26 by afenzl           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME = cub3d
 
 CC = cc
-CFLAGS = -Wall -Wextra -Werror
+CFLAGS = -Wall -Wextra -Werror -fsanitize=address -g
 RM := rm -f
 
 LIBS = ./libft/libs.a
