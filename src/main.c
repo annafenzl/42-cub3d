@@ -3,157 +3,87 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 14:46:10 by afenzl            #+#    #+#             */
-/*   Updated: 2022/10/26 17:00:24 by dhamdiev         ###   ########.fr       */
+/*   Updated: 2022/10/31 14:43:15 by afenzl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
 
-void	error(char *msg)
+void	DEBUG(t_cub *cub)
 {
-	ft_printf_fd(2, "\n\t%s%s%s\n\n", RED, msg, RESET);
-	exit(1);
+	printf("<<<<<<<<<<<<<<>>>>>>>>>>>>>>>\n");
+	ft_print2(cub->input);
+	printf("----------------------------\n");
+	printf("NORTH:	%p\n", cub->tex_dir[north]);
+	printf("SOUTH:	%p\n", cub->tex_dir[south]);
+	printf("WEST:	%p\n", cub->tex_dir[west]);
+	printf("EAST:	%p\n", cub->tex_dir[east]);
+	printf("\n");
+	printf("FLOOR:		%i\n", cub->floor_color);
+	printf("CEILING:	%i\n", cub->ceiling_color);
+	printf("\n");
+	printf("MAP HEIGHT:	%i	|| MAP WIDTH	%i\n", cub->mp_height, cub->mp_width);
+	printf("PLAYER_X:	%i	|| PLAYER_Y	%i\n\n", (int)cub->window.player_x, (int)cub->window.player_y);
+	printf("MAP:\n");
+	ft_print2(cub->map);
+	printf("\n");
+	printf("<<<<<<<<<<<<<<>>>>>>>>>>>>>>>\n");
 }
 
-void	check_path(char const *path)
+void	free_info(t_cub *cub)
 {
-	int		fd;
-	int		i;
+	if (cub && cub->input)
+		free(cub->input);
+	if (cub && cub->map)
+		free(cub->map);
+}
 
-	fd = open(path, O_RDONLY);
-	if (fd <= 0)
+void game_loop(void *param)
+{
+	t_cub		*cub;
+	t_window	*window;
+	int			x;
+	t_ray		ray;
+
+	cub = (t_cub *) param;
+	window = &cub->window;
+	x = 0;
+	draw_floor_and_ceiling(window->window_img, cub->ceiling_color, cub->floor_color);
+	while (x < cub->mlx->width)
 	{
-		close(fd);
-		error("Error: the file doesn't exist or does not have the right rights.");
+		ray.cam_x = 2 * x / (double)cub->mlx->width - 1;
+		ray.ray_dir_x = window->dir_x + window->plane_x * ray.cam_x;
+		ray.ray_dir_y = window->dir_y + window->plane_y * ray.cam_x;
+		ray.map_x = (int) window->player_x;
+		ray.map_y = (int) window->player_y;
+		set_side_and_delta(&ray, window->player_x, window->player_y);
+		apply_dda(&ray, cub->map);
+		get_start_and_end(&ray, cub->mlx->height, window->player_x, window->player_y);
+		draw(cub, &ray, x);
+		x++;
 	}
-	close(fd);
-	i = ft_strlen(path);
-	if (path[i - 4] != '.' || path[i - 3] != 'c'
-		|| path[i - 2] != 'u' || path[i - 1] != 'b')
-		error("Error: the file doesnt have the right format, it should end with '.cub'.");
-}
-
-char	**map_read(char *infile)
-{
-	int		line_number;
-	int		fd;
-	char	*tmp;
-	char	*lines;
-
-	tmp = ft_strdup("");
-	lines = ft_strdup("");
-	fd = open(infile, O_RDONLY);
-	line_number = 0;
-	while (tmp != NULL)
-	{
-		free(tmp);
-		tmp = get_next_line(fd);
-		if (tmp != NULL)
-		{
-			if ((line_number == 4 && ft_strncmp(tmp, "\n", 2) != 0)
-				|| (line_number == 7 && ft_strncmp(tmp, "\n", 2) != 0)
-				|| (line_number > 7 && ft_strncmp(tmp, "\n", 2) == 0))
-				error("Error: Map invalid! (empty line)\n");
-			lines = ft_strjoin_free(lines, tmp);
-		}
-		line_number++;
-	}
-	close(fd);
-	return (ft_split(lines, '\n'));
-}
-
-void	get_textures(t_cub *cub)
-{
-	int		i;
-	char	**line;
-
-	i = 0;
-	line = NULL;
-	while (cub->input && cub->input[i] && i < 4)
-	{
-		line = ft_split(cub->input[i], ' ');
-		if (line != NULL)
-		{
-			if (line[0] && line [1] && ft_strncmp(line[0], "NO", 3)== 0 && !cub->north)
-				cub->north = ft_strdup(line[1]);
-			else if (line[0] && line [1] && ft_strncmp(line[0], "SO", 3) == 0 && !cub->south)
-				cub->south = ft_strdup(line[1]);
-			else if (line[0] && line [1] && ft_strncmp(line[0], "WE", 3) == 0 && !cub->west)
-				cub->west = ft_strdup(line[1]);
-			else if (line[0] && line [1] && ft_strncmp(line[0], "EA", 3) == 0 && !cub->east)
-				cub->east = ft_strdup(line[1]);
-			free(line);
-		}
-		i++;
-	}
-	printf("\n<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>\n\n");
-	printf("NORTH: %s\t| SOUTH: %s\t| WEST: %s\t| EAST: %s\n", cub->north, cub->south, cub->west, cub->east);
-	printf("\n<<<<<<<<<<<<<<<<<<>>>>>>>>>>>>>>>>>>\n");
-}
-
-void	set_to_default(t_cub *cub)
-{
-	cub->input = NULL;
-	cub->player = NULL;
-	cub->north = NULL;
-	cub->south = NULL;
-	cub->west = NULL;
-	cub->east = NULL;
-	cub->floor.blue = 0;
-	cub->floor.green = 0;
-	cub->floor.red = 0;
-	cub->ceiling.blue = 0;
-	cub->ceiling.green = 0;
-	cub->ceiling.red = 0;
-}
-
-int	parse(char *infile, t_cub *cub)
-{
-	set_to_default(cub);
-	check_path(infile);
-	cub->input = map_read(infile);
-	get_textures(cub);
-	return (0);
-}
-
-
-static void ft_hook(void* param)
-{
-	const mlx_t* mlx = param;
-
-	printf("WIDTH: %d | HEIGHT: %d\n", mlx->width, mlx->height);
-}
-
-static void ft_error(void)
-{
-	fprintf(stderr, "%s", mlx_strerror(mlx_errno));
-	exit(EXIT_FAILURE);
 }
 
 int	main(int argc, char **argv)
 {
-	t_cub	cub;
+	t_cub		cub;
+	mlx_image_t	*img;
 
 	if (argc != 2)
-		error("Please execute with: './cub3d path/to/map/MAPNAME.cub'\n");
+		print_error_msg("Please execute with: './cub3d path/to/map/MAPNAME.cub'", NULL);
 	parse(argv[1], &cub);
-	ft_print2(cub.input);
-
-	mlx_t* mlx = mlx_init(400, 500, "42Balls", true);
-
-	mlx_image_t* img = mlx_new_image(mlx, 256, 256);
-	if (!img || (mlx_image_to_window(mlx, img, 0, 0) < 0))
-		ft_error();
-
-	// Even after the image is being displayed, we can still modify the buffer.
-	mlx_put_pixel(img, 0, 0, 0xFF0000FF);
-	
-	mlx_loop_hook(mlx, ft_hook, mlx);
-	mlx_loop(mlx);
-	mlx_terminate(mlx);
-	
+	DEBUG(&cub);
+	cub.mlx = mlx_init(1920, 1080, "Cub3D", true);
+	img = mlx_new_image(cub.mlx, cub.mlx->width, cub.mlx->height);
+	cub.window.window_img = img;
+	mlx_image_to_window(cub.mlx, img, 0, 0);
+	mlx_loop_hook(cub.mlx, &game_loop, &cub);
+	mlx_key_hook(cub.mlx, &reg_keys, &cub);
+	mlx_loop(cub.mlx);
+	mlx_terminate(cub.mlx);
+	free_info(&cub);
 	return (0);
 }

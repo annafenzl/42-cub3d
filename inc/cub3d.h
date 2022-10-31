@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 15:55:27 by afenzl            #+#    #+#             */
-/*   Updated: 2022/10/26 16:53:45 by dhamdiev         ###   ########.fr       */
+/*   Updated: 2022/10/31 14:45:06 by afenzl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,10 @@
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
 # define RESET "\033[0m"
+# define MOVESPEED 0.5
+# define ROTATION_SPEED 0.2
+# define BPP 4
+# define TEXTURE_SIZE 64
 
 # include <stdlib.h>
 # include <unistd.h>
@@ -25,44 +29,75 @@
 # include "../libft/libs.h"
 # include "MLX42/MLX42.h"
 
-enum e_direction
+enum e_dir
 {
 	north,
 	south,
 	west,
-	east
+	east,
 };
 
-typedef struct s_player
+typedef struct s_window
+{	
+	double	player_x;
+	double	player_y;
+	double	dir_x;
+	double	dir_y;
+	double	plane_x;
+	double	plane_y;
+
+	mlx_image_t	*window_img;
+
+}				t_window;
+
+typedef struct s_ray
 {
-	int		start_direction;
-	int		x;
-	int		y;
+	double	cam_x;
+	double	wall_x;
+	double	ray_dir_x;
+	double	ray_dir_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	perp_wall_dist;
 
-}			t_player;
+	int		map_x;
+	int		map_y;
+	int		step_x;
+	int		step_y;
+	int		side;
+	int		draw_start;
+	int		draw_end;
+	int		line_height;
 
-typedef struct s_colour
-{
-	int	red;
-	int	green;
-	int	blue;
-
-}			t_colour;
+}		t_ray;
 
 typedef struct s_cub
 {
-	char		*north;
-	char		*south;
-	char		*west;
-	char		*east;
+	mlx_t			*mlx;
+	t_window		window;
+	mlx_texture_t	*tex_dir[4];
 
-	t_colour	floor;
-	t_colour	ceiling;
+	char			**input;
 
-	t_player	*player;
+	char			**map;
+	int				mp_height;
+	int				mp_width;
 
-	char		**input;
+	int				floor_color;
+	int				ceiling_color;
 
 }			t_cub;
+
+void	print_error_msg(char *msg, t_cub *cub);
+int		parse(char *infile, t_cub *cub);
+void	reg_keys(mlx_key_data_t keydata, void *param);
+void	draw_floor_and_ceiling(mlx_image_t *window, int ceiling_c, int floor_c);
+void	apply_dda(t_ray *ray, char **map);
+void	set_side_and_delta(t_ray *ray, double player_x, double player_y);
+void	get_start_and_end(t_ray *ray, int screen_height, double player_x, double player_y);
+void	draw(t_cub *cub, t_ray *ray, int x);
+
 
 #endif //CUB3D

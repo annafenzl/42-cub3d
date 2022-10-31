@@ -59,7 +59,8 @@ STR =	ft_strlen.c		\
 		ft_putchar_fd.c	\
 		ft_putstr_fd.c	\
 		ft_putendl_fd.c	\
-		ft_putnbr_fd.c
+		ft_putnbr_fd.c	\
+		ft_skip_whitespace.c
 
 LIBFTCFILES :=	$(addprefix $(LIBFT)/free/, $(FREE))	\
 				$(addprefix $(LIBFT)/mem/, $(MEM))		\
