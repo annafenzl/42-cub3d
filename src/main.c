@@ -6,7 +6,7 @@
 /*   By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 14:46:10 by afenzl            #+#    #+#             */
-/*   Updated: 2022/10/31 15:12:24 by dhamdiev         ###   ########.fr       */
+/*   Updated: 2022/10/31 15:19:24 by dhamdiev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	free_info(t_cub *cub)
 		ft_free2(cub->map);
 }
 
-void game_loop(void *param)
+void	game_loop(void *param)
 {
 	t_cub		*cub;
 	t_window	*window;

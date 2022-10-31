@@ -6,7 +6,7 @@
 /*   By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 15:55:27 by afenzl            #+#    #+#             */
-/*   Updated: 2022/10/31 15:17:59 by dhamdiev         ###   ########.fr       */
+/*   Updated: 2022/10/31 15:19:32 by dhamdiev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,10 +90,23 @@ typedef struct s_cub
 
 }			t_cub;
 
-
-// parsing
+// ************** parsing **************
 void	print_error_msg(char *msg, t_cub *cub);
 int		parse(char *infile, t_cub *cub);
+//check
+void	check_path(char const *path);
+void	check_walls(t_cub *cub, int y, int x);
+void	check_map(t_cub *cub);
+void	check_if_complete(t_cub *cub);
+// get
+char	**read_file(char *infile);
+void	get_textures(t_cub *cub);
+void	get_colores(t_cub	*cub);
+// set
+void	set_to_default(t_cub *cub);
+int		set_colores(char **rgb, t_cub *cub);
+void	set_directions(char dir, t_window *window);
+void	set_textures(t_cub *cub, char	**line, int direction);
 
 // raycaster
 void	reg_keys(void *param);
@@ -102,6 +115,5 @@ void	apply_dda(t_ray *ray, char **map);
 void	set_side_and_delta(t_ray *ray, double player_x, double player_y);
 void	get_start_and_end(t_ray *ray, int screen_height, double player_x, double player_y);
 void	draw(t_cub *cub, t_ray *ray, int x);
-
 
 #endif //CUB3D
