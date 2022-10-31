@@ -1,4 +1,16 @@
-# include "../inc/cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_set.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/31 16:16:21 by afenzl            #+#    #+#             */
+/*   Updated: 2022/10/31 17:11:13 by afenzl           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+#include "../inc/cub3d.h"
 
 void	set_to_default(t_cub *cub)
 {
@@ -25,7 +37,7 @@ void	set_textures(t_cub *cub, char	**line, int direction)
 	int	fd;
 
 	if (ft_splitlen(line) != 2)
-		print_error_msg("Not the right amount of arguments for the texture file", cub);
+		print_error_msg("ONE texture file!", cub);
 	fd = open(line[1], O_RDONLY);
 	if (fd < 0)
 		print_error_msg("Texture file cant be opened", cub);
@@ -58,7 +70,7 @@ int	set_colores(char **rgb, t_cub *cub)
 	if (ft_splitlen(rgb) != 3)
 	{
 		free(rgb);
-		print_error_msg("please enter RGB in following manner: '255,255,255'.", cub);
+		print_error_msg("Number input invalid.", cub);
 	}
 	r = convert_to_number(rgb[0]);
 	g = convert_to_number(rgb[1]);
@@ -68,38 +80,22 @@ int	set_colores(char **rgb, t_cub *cub)
 		|| r > 255 || g > 255 || b > 255)
 		print_error_msg("number input invalid.", cub);
 	ft_free2(rgb);
-	return (r << 24 | g << 16 | b << 8 | 255);
+	return (r << 24 | g << 16 | b << 8 | 130);
 }
 
-
-void	set_directions(char dir, t_window *window)
+void	set_directions(t_window *window,
+		double dir_x, double dir_y, double plane)
 {
-	if (dir == 'N')
+	window->dir_x = dir_x;
+	window->dir_y = dir_y;
+	if (dir_x == 0)
 	{
-		window->dir_x = -1;
-		window->dir_y = 0;
-		window->plane_x = 0;
-		window->plane_y = 0.66;
-	}
-	else if (dir == 'S')
-	{
-		window->dir_x = 1;
-		window->dir_y = 0;
-		window->plane_x = 0;
-		window->plane_y = -0.66;
-	}
-	else if (dir == 'W')
-	{
-		window->dir_x = 0;
-		window->dir_y = 1;
-		window->plane_x = -0.66;
+		window->plane_x = plane;
 		window->plane_y = 0;
 	}
-	else if (dir == 'E')
+	else
 	{
-		window->dir_x = 0;
-		window->dir_y = -1;
-		window->plane_x = 0.66;
-		window->plane_y = 0;
+		window->plane_x = 0;
+		window->plane_y = plane;
 	}
 }
