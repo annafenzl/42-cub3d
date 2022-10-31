@@ -6,7 +6,7 @@
 /*   By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 14:46:10 by afenzl            #+#    #+#             */
-/*   Updated: 2022/10/31 14:49:48 by afenzl           ###   ########.fr       */
+/*   Updated: 2022/10/31 15:15:12 by afenzl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ void	free_info(t_cub *cub)
 		ft_free2(cub->map);
 }
 
-void game_loop(void *param)
+void	game_loop(void *param)
 {
 	t_cub		*cub;
 	t_window	*window;
