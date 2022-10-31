@@ -6,7 +6,7 @@
 /*   By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 15:55:27 by afenzl            #+#    #+#             */
-/*   Updated: 2022/10/31 14:45:06 by afenzl           ###   ########.fr       */
+/*   Updated: 2022/10/31 14:48:33 by afenzl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,8 +90,12 @@ typedef struct s_cub
 
 }			t_cub;
 
+
+// parsing
 void	print_error_msg(char *msg, t_cub *cub);
 int		parse(char *infile, t_cub *cub);
+
+// raycaster
 void	reg_keys(mlx_key_data_t keydata, void *param);
 void	draw_floor_and_ceiling(mlx_image_t *window, int ceiling_c, int floor_c);
 void	apply_dda(t_ray *ray, char **map);

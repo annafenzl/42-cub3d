@@ -6,21 +6,11 @@
 /*   By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 16:14:14 by afenzl            #+#    #+#             */
-/*   Updated: 2022/10/31 14:25:48 by afenzl           ###   ########.fr       */
+/*   Updated: 2022/10/31 14:49:39 by afenzl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
-
-void	print_error_msg(char *msg, t_cub *cub)
-{
-	if (cub && cub->input)
-		ft_free2(cub->input);
-	if (cub && cub->map)
-		ft_free2(cub->map);
-	ft_printf_fd(2, "\n\t%sError: %s%s\n\n", RED, msg, RESET);
-	exit(1);
-}
 
 void	check_path(char const *path)
 {

@@ -6,11 +6,21 @@
 /*   By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 14:46:10 by afenzl            #+#    #+#             */
-/*   Updated: 2022/10/31 14:43:15 by afenzl           ###   ########.fr       */
+/*   Updated: 2022/10/31 14:49:48 by afenzl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../inc/cub3d.h"
+
+void	print_error_msg(char *msg, t_cub *cub)
+{
+	if (cub && cub->input)
+		ft_free2(cub->input);
+	if (cub && cub->map)
+		ft_free2(cub->map);
+	ft_printf_fd(2, "\n\t%sError: %s%s\n\n", RED, msg, RESET);
+	exit(1);
+}
 
 void	DEBUG(t_cub *cub)
 {
@@ -36,9 +46,9 @@ void	DEBUG(t_cub *cub)
 void	free_info(t_cub *cub)
 {
 	if (cub && cub->input)
-		free(cub->input);
+		ft_free2(cub->input);
 	if (cub && cub->map)
-		free(cub->map);
+		ft_free2(cub->map);
 }
 
 void game_loop(void *param)
