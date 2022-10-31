@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 15:55:27 by afenzl            #+#    #+#             */
-/*   Updated: 2022/10/31 14:48:33 by afenzl           ###   ########.fr       */
+/*   Updated: 2022/10/31 15:17:59 by dhamdiev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
 # define RESET "\033[0m"
-# define MOVESPEED 0.5
-# define ROTATION_SPEED 0.2
+# define MOVESPEED 0.05
+# define ROTATION_SPEED 0.03
 # define BPP 4
 # define TEXTURE_SIZE 64
 
@@ -96,7 +96,7 @@ void	print_error_msg(char *msg, t_cub *cub);
 int		parse(char *infile, t_cub *cub);
 
 // raycaster
-void	reg_keys(mlx_key_data_t keydata, void *param);
+void	reg_keys(void *param);
 void	draw_floor_and_ceiling(mlx_image_t *window, int ceiling_c, int floor_c);
 void	apply_dda(t_ray *ray, char **map);
 void	set_side_and_delta(t_ray *ray, double player_x, double player_y);

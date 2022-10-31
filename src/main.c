@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 14:46:10 by afenzl            #+#    #+#             */
-/*   Updated: 2022/10/31 14:49:48 by afenzl           ###   ########.fr       */
+/*   Updated: 2022/10/31 15:12:24 by dhamdiev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,7 @@ void game_loop(void *param)
 	cub = (t_cub *) param;
 	window = &cub->window;
 	x = 0;
+	reg_keys(cub);
 	draw_floor_and_ceiling(window->window_img, cub->ceiling_color, cub->floor_color);
 	while (x < cub->mlx->width)
 	{
@@ -77,6 +78,16 @@ void game_loop(void *param)
 	}
 }
 
+void resize(int32_t width, int32_t height, void *param)
+{
+	t_cub	*cub;
+
+	cub = (t_cub *)param;
+	mlx_delete_image(cub->mlx, cub->window.window_img);
+	cub->window.window_img = mlx_new_image(cub->mlx, width, height);
+	mlx_image_to_window(cub->mlx, cub->window.window_img, 0 ,0);
+}
+
 int	main(int argc, char **argv)
 {
 	t_cub		cub;
@@ -91,7 +102,7 @@ int	main(int argc, char **argv)
 	cub.window.window_img = img;
 	mlx_image_to_window(cub.mlx, img, 0, 0);
 	mlx_loop_hook(cub.mlx, &game_loop, &cub);
-	mlx_key_hook(cub.mlx, &reg_keys, &cub);
+	mlx_resize_hook(cub.mlx, &resize, &cub);
 	mlx_loop(cub.mlx);
 	mlx_terminate(cub.mlx);
 	free_info(&cub);
