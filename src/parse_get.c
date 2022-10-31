@@ -1,12 +1,23 @@
-# include "../inc/cub3d.h"
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   parse_get.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2022/10/31 16:28:43 by afenzl            #+#    #+#             */
+/*   Updated: 2022/10/31 16:28:45 by afenzl           ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
 
-char	**read_file(char *infile)
+#include "../inc/cub3d.h"
+
+char	*read_file(char *infile)
 {
 	int		line_number;
 	int		fd;
 	char	*tmp;
 	char	*lines;
-	char	**ret;
 
 	tmp = ft_strdup("");
 	lines = ft_strdup("");
@@ -27,9 +38,7 @@ char	**read_file(char *infile)
 		line_number++;
 	}
 	close(fd);
-	ret = ft_split(lines, '\n');
-	free(lines);
-	return (ret);
+	return (lines);
 }
 
 void	get_textures(t_cub *cub)
@@ -71,7 +80,7 @@ void	get_colores(t_cub	*cub)
 		if (line != NULL)
 		{
 			if (ft_splitlen(line) != 2)
-				print_error_msg("please enter RGB in following manner: '255,255,255'.", cub);
+				print_error_msg("Color input invalid.", cub);
 			if (ft_strncmp(line[0], "F", 2) == 0)
 				cub->floor_color = set_colores(ft_split(line[1], ','), cub);
 			else if (ft_strncmp(line[0], "C", 2) == 0)
@@ -84,9 +93,13 @@ void	get_colores(t_cub	*cub)
 
 int	parse(char *infile, t_cub *cub)
 {
+	char	*input;
+
 	set_to_default(cub);
 	check_path(infile);
-	cub->input = read_file(infile);
+	input = read_file(infile);
+	cub->input = ft_split(input, '\n');
+	free(input);
 	get_textures(cub);
 	get_colores(cub);
 	check_if_complete(cub);

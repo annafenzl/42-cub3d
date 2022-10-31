@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 15:55:27 by afenzl            #+#    #+#             */
-/*   Updated: 2022/10/31 15:19:32 by dhamdiev         ###   ########.fr       */
+/*   Updated: 2022/10/31 17:14:23 by afenzl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,12 +39,12 @@ enum e_dir
 
 typedef struct s_window
 {	
-	double	player_x;
-	double	player_y;
-	double	dir_x;
-	double	dir_y;
-	double	plane_x;
-	double	plane_y;
+	double		player_x;
+	double		player_y;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
 
 	mlx_image_t	*window_img;
 
@@ -99,21 +99,22 @@ void	check_walls(t_cub *cub, int y, int x);
 void	check_map(t_cub *cub);
 void	check_if_complete(t_cub *cub);
 // get
-char	**read_file(char *infile);
+char	*read_file(char *infile);
 void	get_textures(t_cub *cub);
 void	get_colores(t_cub	*cub);
 // set
 void	set_to_default(t_cub *cub);
 int		set_colores(char **rgb, t_cub *cub);
-void	set_directions(char dir, t_window *window);
 void	set_textures(t_cub *cub, char	**line, int direction);
-
+void	set_directions(t_window *window,
+			double dir_x, double dir_y, double plane);
 // raycaster
 void	reg_keys(void *param);
 void	draw_floor_and_ceiling(mlx_image_t *window, int ceiling_c, int floor_c);
 void	apply_dda(t_ray *ray, char **map);
 void	set_side_and_delta(t_ray *ray, double player_x, double player_y);
-void	get_start_and_end(t_ray *ray, int screen_height, double player_x, double player_y);
+void	get_start_and_end(t_ray *ray,
+			int screen_height, double player_x, double player_y);
 void	draw(t_cub *cub, t_ray *ray, int x);
 
 #endif //CUB3D
