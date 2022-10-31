@@ -6,7 +6,7 @@
 /*   By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 14:46:10 by afenzl            #+#    #+#             */
-/*   Updated: 2022/10/31 15:19:24 by dhamdiev         ###   ########.fr       */
+/*   Updated: 2022/10/31 17:11:16 by dhamdiev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,8 @@ void	game_loop(void *param)
 	window = &cub->window;
 	x = 0;
 	reg_keys(cub);
-	draw_floor_and_ceiling(window->window_img, cub->ceiling_color, cub->floor_color);
+	draw_floor_and_ceiling(window->window_img,
+		cub->ceiling_color, cub->floor_color);
 	while (x < cub->mlx->width)
 	{
 		ray.cam_x = 2 * x / (double)cub->mlx->width - 1;
@@ -71,14 +72,15 @@ void	game_loop(void *param)
 		ray.map_x = (int) window->player_x;
 		ray.map_y = (int) window->player_y;
 		set_side_and_delta(&ray, window->player_x, window->player_y);
-		apply_dda(&ray, cub->map);
-		get_start_and_end(&ray, cub->mlx->height, window->player_x, window->player_y);
+		apply_dda(&ray, cub);
+		get_start_and_end(&ray, cub->mlx->height,
+			window->player_x, window->player_y);
 		draw(cub, &ray, x);
 		x++;
 	}
 }
 
-void resize(int32_t width, int32_t height, void *param)
+void	resize(int32_t width, int32_t height, void *param)
 {
 	t_cub	*cub;
 
@@ -94,7 +96,8 @@ int	main(int argc, char **argv)
 	mlx_image_t	*img;
 
 	if (argc != 2)
-		print_error_msg("Please execute with: './cub3d path/to/map/MAPNAME.cub'", NULL);
+		print_error_msg(
+			"Please execute with: './cub3d path/to/map/MAPNAME.cub'", NULL);
 	parse(argv[1], &cub);
 	DEBUG(&cub);
 	cub.mlx = mlx_init(1920, 1080, "Cub3D", true);

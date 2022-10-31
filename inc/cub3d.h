@@ -6,7 +6,7 @@
 /*   By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 15:55:27 by afenzl            #+#    #+#             */
-/*   Updated: 2022/10/31 15:19:32 by dhamdiev         ###   ########.fr       */
+/*   Updated: 2022/10/31 17:02:08 by dhamdiev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@
 # define GREEN "\033[0;32m"
 # define RESET "\033[0m"
 # define MOVESPEED 0.05
-# define ROTATION_SPEED 0.03
+# define ROTATION_SPEED 0.035
 # define BPP 4
 # define TEXTURE_SIZE 64
 
@@ -111,7 +111,7 @@ void	set_textures(t_cub *cub, char	**line, int direction);
 // raycaster
 void	reg_keys(void *param);
 void	draw_floor_and_ceiling(mlx_image_t *window, int ceiling_c, int floor_c);
-void	apply_dda(t_ray *ray, char **map);
+void	apply_dda(t_ray *ray, t_cub *cub);
 void	set_side_and_delta(t_ray *ray, double player_x, double player_y);
 void	get_start_and_end(t_ray *ray, int screen_height, double player_x, double player_y);
 void	draw(t_cub *cub, t_ray *ray, int x);
