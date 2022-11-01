@@ -6,7 +6,7 @@
 /*   By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 15:55:27 by afenzl            #+#    #+#             */
-/*   Updated: 2022/10/31 17:17:48 by dhamdiev         ###   ########.fr       */
+/*   Updated: 2022/11/01 17:44:05 by dhamdiev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,8 +16,8 @@
 # define RED "\033[0;31m"
 # define GREEN "\033[0;32m"
 # define RESET "\033[0m"
-# define MOVESPEED 0.05
-# define ROTATION_SPEED 0.035
+# define MOVESPEED 0.06
+# define ROTATION_SPEED 0.04
 # define BPP 4
 # define TEXTURE_SIZE 64
 
@@ -93,6 +93,8 @@ typedef struct s_cub
 // ************** parsing **************
 void	print_error_msg(char *msg, t_cub *cub);
 int		parse(char *infile, t_cub *cub);
+void	free_info(t_cub *cub);
+
 //check
 void	check_path(char const *path);
 void	check_walls(t_cub *cub, int y, int x);
@@ -108,7 +110,7 @@ int		set_colores(char **rgb, t_cub *cub);
 void	set_textures(t_cub *cub, char	**line, int direction);
 void	set_directions(t_window *window,
 			double dir_x, double dir_y, double plane);
-// raycaster
+// // raycaster
 void	reg_keys(void *param);
 void	draw_floor_and_ceiling(mlx_image_t *window, int ceiling_c, int floor_c);
 void	apply_dda(t_ray *ray, t_cub *cub);
