@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 14:46:10 by afenzl            #+#    #+#             */
-/*   Updated: 2022/10/31 17:11:16 by dhamdiev         ###   ########.fr       */
+/*   Updated: 2022/10/31 17:24:39 by afenzl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,27 +20,6 @@ void	print_error_msg(char *msg, t_cub *cub)
 		ft_free2(cub->map);
 	ft_printf_fd(2, "\n\t%sError: %s%s\n\n", RED, msg, RESET);
 	exit(1);
-}
-
-void	DEBUG(t_cub *cub)
-{
-	printf("<<<<<<<<<<<<<<>>>>>>>>>>>>>>>\n");
-	ft_print2(cub->input);
-	printf("----------------------------\n");
-	printf("NORTH:	%p\n", cub->tex_dir[north]);
-	printf("SOUTH:	%p\n", cub->tex_dir[south]);
-	printf("WEST:	%p\n", cub->tex_dir[west]);
-	printf("EAST:	%p\n", cub->tex_dir[east]);
-	printf("\n");
-	printf("FLOOR:		%i\n", cub->floor_color);
-	printf("CEILING:	%i\n", cub->ceiling_color);
-	printf("\n");
-	printf("MAP HEIGHT:	%i	|| MAP WIDTH	%i\n", cub->mp_height, cub->mp_width);
-	printf("PLAYER_X:	%i	|| PLAYER_Y	%i\n\n", (int)cub->window.player_x, (int)cub->window.player_y);
-	printf("MAP:\n");
-	ft_print2(cub->map);
-	printf("\n");
-	printf("<<<<<<<<<<<<<<>>>>>>>>>>>>>>>\n");
 }
 
 void	free_info(t_cub *cub)
@@ -99,7 +78,6 @@ int	main(int argc, char **argv)
 		print_error_msg(
 			"Please execute with: './cub3d path/to/map/MAPNAME.cub'", NULL);
 	parse(argv[1], &cub);
-	DEBUG(&cub);
 	cub.mlx = mlx_init(1920, 1080, "Cub3D", true);
 	img = mlx_new_image(cub.mlx, cub.mlx->width, cub.mlx->height);
 	cub.window.window_img = img;
