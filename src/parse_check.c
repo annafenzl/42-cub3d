@@ -6,7 +6,7 @@
 /*   By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 16:14:14 by afenzl            #+#    #+#             */
-/*   Updated: 2022/10/31 17:17:56 by dhamdiev         ###   ########.fr       */
+/*   Updated: 2022/11/01 17:36:35 by dhamdiev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	check_walls(t_cub *cub, int y, int x)
 			|| y == ft_splitlen(cub->map) - 1
 			|| x >= (int)ft_strlen(cub->map[y - 1])
 			|| (cub->map[y + 1] && x >= (int)ft_strlen(cub->map[y + 1])))
-			print_error_msg("Error: Map is leaking.", cub);
+			print_error_msg("Map is leaking.", cub);
 	}
 }
 
@@ -61,13 +61,13 @@ int	check_player(t_cub *cub, int y, int x)
 		cub->window.player_y = y + 0.5;
 		cub->map[y][x] = '0';
 		if (dir == 'N')
-			set_directions(&cub->window, -1, 0, 0.66);
-		else if (dir == 'S')
-			set_directions(&cub->window, 1, 0, -0.66);
-		else if (dir == 'W')
-			set_directions(&cub->window, 0, 1, -0.66);
-		else if (dir == 'E')
 			set_directions(&cub->window, 0, -1, 0.66);
+		else if (dir == 'S')
+			set_directions(&cub->window, 0, 1, -0.66);
+		else if (dir == 'W')
+			set_directions(&cub->window, -1, 0, -0.66);
+		else if (dir == 'E')
+			set_directions(&cub->window, 1, 0, 0.66);
 		return (1);
 	}
 	return (0);

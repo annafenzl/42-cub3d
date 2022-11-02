@@ -1,0 +1,14 @@
+NO ./textures/eagle.png
+WE ./textures/greystone.png
+EA ./textures/purplestone.png
+SO ./textures/redbrick.png
+
+F 220,100,0
+C 255,30,1
+
+11111111111111111
+10000000000000001
+10000W0S000000001
+10000000000000001
+1000N00E000000001
+11111111111111111

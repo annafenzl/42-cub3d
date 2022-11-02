@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_get.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:28:43 by afenzl            #+#    #+#             */
-/*   Updated: 2022/10/31 16:28:45 by afenzl           ###   ########.fr       */
+/*   Updated: 2022/11/01 15:25:54 by dhamdiev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ void	get_textures(t_cub *cub)
 				set_textures(cub, line, west);
 			else if (ft_strncmp(line[0], "EA", 3) == 0 && !cub->tex_dir[east])
 				set_textures(cub, line, east);
-			free(line);
+			ft_free2(line);
 		}
 		i++;
 	}

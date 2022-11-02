@@ -6,7 +6,7 @@
 /*   By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:27:28 by dhamdiev          #+#    #+#             */
-/*   Updated: 2022/10/31 17:14:09 by dhamdiev         ###   ########.fr       */
+/*   Updated: 2022/11/01 17:38:24 by dhamdiev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,19 +37,19 @@ int	get_texture_index(t_ray *ray)
 {
 	if (!ray->side && ray->ray_dir_x > 0)
 	{
-		return (north);
+		return (west);
 	}
 	else if (!ray->side && ray->ray_dir_x < 0)
 	{
-		return (south);
+		return (east);
 	}
 	if (ray->side && ray->ray_dir_y < 0)
 	{
-		return (west);
+		return (south);
 	}
 	else if (ray->side && ray->ray_dir_y > 0)
 	{
-		return (east);
+		return (north);
 	}
 	return (0);
 }

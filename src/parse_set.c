@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_set.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+        */
+/*   By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:16:21 by afenzl            #+#    #+#             */
-/*   Updated: 2022/10/31 17:11:13 by afenzl           ###   ########.fr       */
+/*   Updated: 2022/11/01 15:18:01 by dhamdiev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int	set_colores(char **rgb, t_cub *cub)
 	r = convert_to_number(rgb[0]);
 	g = convert_to_number(rgb[1]);
 	b = convert_to_number(rgb[2]);
-	printf("RED: %i, GREEN: %i, BLUE %i\n", r, g, b);
 	if (r < 0 || g < 0 || b < 0
 		|| r > 255 || g > 255 || b > 255)
 		print_error_msg("number input invalid.", cub);

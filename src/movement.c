@@ -6,7 +6,7 @@
 /*   By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:27:08 by dhamdiev          #+#    #+#             */
-/*   Updated: 2022/10/31 17:10:26 by dhamdiev         ###   ########.fr       */
+/*   Updated: 2022/11/01 17:45:18 by dhamdiev         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	move_up_down(t_window *window, t_cub *cub)
 
 void	move_right_left(t_window *window, t_cub *cub)
 {
-	if (mlx_is_key_down(cub->mlx, MLX_KEY_A))
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_D))
 	{
 		if (cub->map[(int)(window->player_y)]
 		[(int)(window->player_x + -window->dir_y * MOVESPEED * 5)] != '1')
@@ -45,7 +45,7 @@ void	move_right_left(t_window *window, t_cub *cub)
 			[(int)(window->player_x)] != '1')
 			window->player_y += window->dir_x * MOVESPEED;
 	}
-	if (mlx_is_key_down(cub->mlx, MLX_KEY_D))
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_A))
 	{
 		if (cub->map[(int)(window->player_y)]
 		[(int)(window->player_x - -window->dir_y * MOVESPEED * 5)] != '1')
@@ -56,12 +56,12 @@ void	move_right_left(t_window *window, t_cub *cub)
 	}
 }
 
-void	rotate_right(t_window *window, t_cub *cub)
+void	rotate_left(t_window *window, t_cub *cub)
 {
 	double	old_dir_x;
 	double	old_plane_x;
 
-	if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
 	{
 		old_dir_x = window->dir_x;
 		window->dir_x = window->dir_x * cos(-ROTATION_SPEED)
@@ -76,12 +76,12 @@ void	rotate_right(t_window *window, t_cub *cub)
 	}
 }
 
-void	rotate_left(t_window *window, t_cub *cub)
+void	rotate_right(t_window *window, t_cub *cub)
 {
 	double	old_dir_x;
 	double	old_plane_x;
 
-	if (mlx_is_key_down(cub->mlx, MLX_KEY_LEFT))
+	if (mlx_is_key_down(cub->mlx, MLX_KEY_RIGHT))
 	{
 		old_dir_x = window->dir_x;
 		window->dir_x = window->dir_x * cos(ROTATION_SPEED)
@@ -113,6 +113,7 @@ void	reg_keys(void *param)
 		{
 			mlx_terminate(cub->mlx);
 			mlx_close_window(cub->mlx);
+			free_info(cub);
 			exit(0);
 		}
 	}
