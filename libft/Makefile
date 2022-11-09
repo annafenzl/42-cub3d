@@ -48,6 +48,7 @@ STR =	ft_strlen.c		\
 		ft_strdupn.c	\
 		ft_substr.c		\
 		ft_strjoin.c 	\
+		ft_split_and_join.c \
 		ft_strtrim.c	\
 		ft_split.c		\
 		ft_splitlen.c	\

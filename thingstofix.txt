@@ -1,0 +1,5 @@
+C 255     ,    3 0,   66 
+--> considered valid since split_and_join makes it 30
+
+C	255     ,    30, 66
+--> invalid cause of the tab

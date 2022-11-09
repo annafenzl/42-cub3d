@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_check.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/28 16:14:14 by afenzl            #+#    #+#             */
-/*   Updated: 2022/11/01 17:36:35 by dhamdiev         ###   ########.fr       */
+/*   Updated: 2022/11/02 14:14:51 by afenzl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	check_path(char const *path)
 	i = ft_strlen(path);
 	if (path[i - 4] != '.' || path[i - 3] != 'c'
 		|| path[i - 2] != 'u' || path[i - 1] != 'b')
-		print_error_msg("The file doesnt have the right format.", NULL);
+		print_error_msg("The file doesn't have the right format.", NULL);
 }
 
 void	check_walls(t_cub *cub, int y, int x)

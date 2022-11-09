@@ -6,7 +6,7 @@
 /*   By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 14:46:10 by afenzl            #+#    #+#             */
-/*   Updated: 2022/11/02 14:09:41 by afenzl           ###   ########.fr       */
+/*   Updated: 2022/11/02 16:54:26 by afenzl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	print_error_msg(char *msg, t_cub *cub)
 		ft_free2(cub->input);
 	if (cub && cub->map)
 		ft_free2(cub->map);
-	ft_printf_fd(2, "\n\t%sError:\n %s%s\n\n", RED, msg, RESET);
+	ft_printf_fd(2, "\n%sError:\n \t%s%s\n\n", RED, msg, RESET);
 	exit(1);
 }
 
@@ -66,11 +66,11 @@ void	game_loop(void *param)
 
 	cub = (t_cub *) param;
 	window = &cub->window;
-	x = 0;
+	x = -1;
 	reg_keys(cub);
 	draw_floor_and_ceiling(window->window_img,
 		cub->ceiling_color, cub->floor_color);
-	while (x < cub->mlx->width)
+	while (++x < cub->mlx->width)
 	{
 		ray.cam_x = 2 * x / (double)cub->mlx->width - 1;
 		ray.ray_dir_x = window->dir_x + window->plane_x * ray.cam_x;
@@ -82,7 +82,6 @@ void	game_loop(void *param)
 		get_start_and_end(&ray, cub->mlx->height,
 			window->player_x, window->player_y);
 		draw(cub, &ray, x);
-		x++;
 	}
 }
 

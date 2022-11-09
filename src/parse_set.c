@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parse_set.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:16:21 by afenzl            #+#    #+#             */
-/*   Updated: 2022/11/01 15:18:01 by dhamdiev         ###   ########.fr       */
+/*   Updated: 2022/11/02 17:08:34 by afenzl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,31 @@ void	set_to_default(t_cub *cub)
 	cub->window.player_y = 0;
 }
 
-void	set_textures(t_cub *cub, char	**line, int direction)
+void	set_textures(t_cub *cub, char	*str, int direction)
 {
-	int	fd;
+	int		fd;
+	char	**line;
 
+	line = ft_split(str, ' ');
 	if (ft_splitlen(line) != 2)
+	{
+		ft_free2(line);
 		print_error_msg("ONE texture file!", cub);
+	}
 	fd = open(line[1], O_RDONLY);
 	if (fd < 0)
-		print_error_msg("Texture file cant be opened", cub);
+	{
+		ft_free2(line);
+		print_error_msg("Texture file can't be opened", cub);
+	}
 	close(fd);
 	cub->tex_dir[direction] = mlx_load_png(line[1]);
 	if (cub->tex_dir[direction] == NULL)
+	{
+		ft_free2(line);
 		print_error_msg("Texture file not a valid file format or empty", cub);
+	}
+	ft_free2(line);
 }
 
 int	convert_to_number(char	*str)
@@ -61,24 +73,30 @@ int	convert_to_number(char	*str)
 	return (ft_atoi(str));
 }
 
-int	set_colores(char **rgb, t_cub *cub)
+int	set_colores(char *line, t_cub *cub)
 {
+	char	*rgb;
+	char	**colores;
 	int		r;
 	int		g;
 	int		b;
 
-	if (ft_splitlen(rgb) != 3)
+	rgb = ft_split_and_join(line, ' ');
+	colores = ft_split(rgb, ',');
+	if (ft_splitlen(colores) != 3)
 	{
 		free(rgb);
+		ft_free2(colores);
 		print_error_msg("Number input invalid.", cub);
 	}
-	r = convert_to_number(rgb[0]);
-	g = convert_to_number(rgb[1]);
-	b = convert_to_number(rgb[2]);
+	r = convert_to_number(&colores[0][1]);
+	g = convert_to_number(colores[1]);
+	b = convert_to_number(colores[2]);
 	if (r < 0 || g < 0 || b < 0
 		|| r > 255 || g > 255 || b > 255)
 		print_error_msg("number input invalid.", cub);
-	ft_free2(rgb);
+	free(rgb);
+	ft_free2(colores);
 	return (r << 24 | g << 16 | b << 8 | 130);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+        */
+/*   By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/23 15:55:27 by afenzl            #+#    #+#             */
-/*   Updated: 2022/11/01 17:44:05 by dhamdiev         ###   ########.fr       */
+/*   Updated: 2022/11/02 16:49:07 by afenzl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,12 +102,11 @@ void	check_map(t_cub *cub);
 void	check_if_complete(t_cub *cub);
 // get
 char	*read_file(char *infile);
-void	get_textures(t_cub *cub);
-void	get_colores(t_cub	*cub);
+void	get_textures_and_color(t_cub *cub);
 // set
 void	set_to_default(t_cub *cub);
-int		set_colores(char **rgb, t_cub *cub);
-void	set_textures(t_cub *cub, char	**line, int direction);
+int		set_colores(char *rgb, t_cub *cub);
+void	set_textures(t_cub *cub, char	*line, int direction);
 void	set_directions(t_window *window,
 			double dir_x, double dir_y, double plane);
 // // raycaster

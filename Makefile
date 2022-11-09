@@ -3,15 +3,15 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dhamdiev <dhamdiev@student.42heilbronn.    +#+  +:+       +#+         #
+#    By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/10/23 14:36:07 by afenzl            #+#    #+#              #
-#    Updated: 2022/11/01 17:43:46 by dhamdiev         ###   ########.fr        #
+#    Updated: 2022/11/02 16:05:12 by afenzl           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME	:= cub3d
-CFLAGS	:= -Wextra -Wall -Werror -Wunreachable-code -Ofast -g
+CFLAGS	:= -Wunreachable-code -Ofast -g
 LIBMLX	:= ./MLX42
 LIBFT	:= ./libft
 
