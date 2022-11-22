@@ -6,15 +6,15 @@
 /*   By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/11/02 16:56:48 by afenzl            #+#    #+#             */
-/*   Updated: 2022/11/02 16:57:06 by afenzl           ###   ########.fr       */
+/*   Updated: 2022/11/22 15:18:12 by afenzl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include "../libft.h"
+#include "../libft.h"
 
 char	*ft_split_and_join(char	*str, char c)
 {
-	int	i;
+	int		i;
 	char	**split;
 	char	*tmp;
 

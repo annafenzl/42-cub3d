@@ -6,7 +6,7 @@
 /*   By: afenzl <afenzl@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/10/31 16:28:43 by afenzl            #+#    #+#             */
-/*   Updated: 2022/11/02 17:09:00 by afenzl           ###   ########.fr       */
+/*   Updated: 2022/11/22 15:15:05 by afenzl           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,6 +98,8 @@ int	parse(char *infile, t_cub *cub)
 	input = read_file(infile);
 	cub->input = ft_split(input, '\n');
 	free(input);
+	if (cub->input == NULL || cub->input[0] == NULL)
+		print_error_msg("File empty.", cub);
 	get_textures_and_color(cub);
 	check_map(cub);
 	return (0);
