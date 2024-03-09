@@ -5,6 +5,9 @@ The goal of this create a Raycaster inspired by the [Wolfenstein3D Game](http://
 
 ## Description
 **run _`make`_**
+
+**run _`./cub3d ./path_to_valid_map`_**
+
 make sure the 42 Graphic library is correct in the Makefile.
 
 Movement is possible with WASD-keys and changing the view with left and right arrow. 
